@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import Login from "../pages/Login";
 import { ProjectList } from "../pages/Project";
 import { ContractList } from "../pages/Contract";
+import UserList from "../pages/User";
 
 export function AppRoutes() {
   return (
@@ -11,8 +12,9 @@ export function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<h1>404</h1>} />
         <Route path="/" element={<NavBar />}>
-            <Route index element={<ProjectList />} />
+            <Route path="/project" element={<ProjectList />} />
             <Route path="/contract" element={<ContractList />} />
+            <Route path="/user" element={<UserList />} />
         </Route>	
       </Routes>
     </BrowserRouter>
