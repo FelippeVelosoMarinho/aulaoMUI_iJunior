@@ -9,13 +9,24 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
 
 import { Image } from "mui-image";
 
 import Logo from "../../assets/projetointerno.svg";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import { useState } from "react";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPasswordClick = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Container
       component={"main"}
@@ -69,20 +80,31 @@ export default function Login() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
+              variant="standard"
             />
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Password"
-              type="password"
+              label="Senha"
+              type={showPassword ? "text" : "password"}
               id="password"
               autoComplete="current-password"
+              variant="standard"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowPasswordClick} edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Button
               type="submit"

@@ -2,6 +2,8 @@ import { ThemeProvider } from "@emotion/react";
 import { createTheme, CssBaseline } from "@mui/material";
 import Login from "./pages/Login";
 
+import { ptBR } from "@mui/material/locale";
+
 function App() {
   const theme = createTheme({
     palette: {
@@ -24,7 +26,16 @@ function App() {
       fontWeightMedium: 500,
       fontWeightBold: 700,
     },
-  });
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 900,
+        md: 900,
+        lg: 1200,
+        xl: 1536
+      },
+    },
+  }, ptBR);
 
   return (
     <ThemeProvider theme={theme}>
