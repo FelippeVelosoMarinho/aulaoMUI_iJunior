@@ -11,6 +11,8 @@ import {
   FormControlLabel,
   IconButton,
   InputAdornment,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 import { Image } from "mui-image";
@@ -20,9 +22,12 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../services/Auth/login";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,10 +35,25 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    //Manda dados para o backend
-    navigate("../");
+    const data = new FormData(event.currentTarget);
+
+    try {
+      const body = {
+        email: String(data.get("email")),
+        senha: String(data.get("password")),
+      };
+
+      await login(body);
+      //Manda dados para o backend
+      console.log("Logado com sucesso!");
+      navigate("../");
+    } catch (error) {
+      console.log("Deu erro");
+      setMessage(error);
+      setOpen(true);
+    }
   }
 
   return (
@@ -132,6 +152,15 @@ export default function Login() {
           </Box>
         </Box>
       </Paper>
+      <Snackbar open={open} message={message} autoHideDuration={100000}>
+        <Alert
+          elevation={5}
+          variant="filled"
+          severity="error"
+        >
+          {message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
