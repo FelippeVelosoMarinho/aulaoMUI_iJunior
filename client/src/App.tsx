@@ -3,6 +3,7 @@ import { createTheme, CssBaseline } from "@mui/material";
 import Login from "./pages/Login";
 
 import { ptBR } from "@mui/material/locale";
+import { AppRoutes } from "./routes/AppRoutes";
 
 function App() {
   const theme = createTheme({
@@ -40,7 +41,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Login />
+      <AppRoutes />
     </ThemeProvider>
   );
 }

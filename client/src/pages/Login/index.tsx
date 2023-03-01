@@ -19,13 +19,22 @@ import Logo from "../../assets/projetointerno.svg";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleShowPasswordClick = () => {
     setShowPassword(!showPassword);
   };
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    //Manda dados para o backend
+    navigate("../");
+  }
 
   return (
     <Container
@@ -74,6 +83,7 @@ export default function Login() {
             sx={{
               mt: 1,
             }}
+            onSubmit={handleSubmit}
           >
             <TextField
               margin="normal"
